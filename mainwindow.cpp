@@ -49,7 +49,7 @@ void MainWindow::on_startBtn_clicked()
     uint32_t num = ui->numEdit->text().toUInt();
     uint64_t nodeID = ui->nodeIDEdit->text().toULongLong();
 
-    mp_mgr = new LoginMgrThd(LoginForm(ip, username, pwd, num, port, nodeID));
+    mp_mgr = new LoginMgrThd(num, LoginForm(ip, username, pwd, port, nodeID));
     //connect(mp_mgr, &LoginMgrThd::updateProgress, ui->progressBar, &QProgressBar::setValue);
     connect(mp_mgr, &LoginMgrThd::testFinished, this, &MainWindow::on_testFinished);
 

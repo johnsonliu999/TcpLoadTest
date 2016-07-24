@@ -17,12 +17,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     logintask.cpp \
-    loginmgrthd.cpp
+    loginmgrthd.cpp \
+    connectmgrthd.cpp \
+    mgrthd.cpp
 
 HEADERS  += mainwindow.h \
     TGClientSDK.h \
     logintask.h \
-    loginmgrthd.h
+    loginmgrthd.h \
+    connectmgrthd.h \
+    mgrthd.h
 
 FORMS    += mainwindow.ui
 
