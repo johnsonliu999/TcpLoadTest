@@ -4,8 +4,11 @@
 #include "logintask.h"
 #include "loginmgrthd.h"
 
+#include "connectmgrthd.h"
+
 #include <QThreadPool>
 #include <QDebug>
+#include <QMessageBox>
 
 
 
@@ -26,9 +29,13 @@ void MainWindow::on_testFinished(uint32_t succeed, uint32_t failed)
 {
     ui->succeedEdit->setText(QString::number(succeed));
     ui->failedEdit->setText(QString::number(failed));
+    ui->progressBar->hide();
+
     mp_mgr->quit();
     mp_mgr->wait();
     delete mp_mgr;
+
+    QMessageBox::information(this, "Test Finished", "Test Finished!", QMessageBox::Ok);
 
     ui->nameEdit->setEnabled(true);
     ui->pwdEdit->setEnabled(true);
@@ -37,7 +44,7 @@ void MainWindow::on_testFinished(uint32_t succeed, uint32_t failed)
     ui->numEdit->setEnabled(true);
     ui->nodeIDEdit->setEnabled(true);
     ui->startBtn->setEnabled(true);
-    ui->progressBar->hide();
+
 }
 
 void MainWindow::on_startBtn_clicked()
@@ -49,9 +56,18 @@ void MainWindow::on_startBtn_clicked()
     uint32_t num = ui->numEdit->text().toUInt();
     uint64_t nodeID = ui->nodeIDEdit->text().toULongLong();
 
-    mp_mgr = new LoginMgrThd(num, LoginForm(ip, username, pwd, port, nodeID));
-    //connect(mp_mgr, &LoginMgrThd::updateProgress, ui->progressBar, &QProgressBar::setValue);
-    connect(mp_mgr, &LoginMgrThd::testFinished, this, &MainWindow::on_testFinished);
+
+
+    switch (ui->taskBox->currentIndex())
+    {
+    case 0:
+        mp_mgr = new ConnectMgrThd(num, ConnectForm(ip, port));
+        connect(mp_mgr, &MgrThd::testFinished, this, &MainWindow::on_testFinished);
+        break;
+    case 1:
+        mp_mgr = new LoginMgrThd(num, LoginForm(ip, username, pwd, port, nodeID));
+        connect(mp_mgr, &MgrThd::testFinished, this, &MainWindow::on_testFinished);
+    }
 
     mp_mgr->start();
 

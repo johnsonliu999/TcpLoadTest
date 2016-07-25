@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-class LoginMgrThd;
+class MgrThd;
 
 namespace Ui {
 class MainWindow;
@@ -26,7 +26,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    LoginMgrThd* mp_mgr;
+    MgrThd* mp_mgr;
 };
 
 #endif // MAINWINDOW_H

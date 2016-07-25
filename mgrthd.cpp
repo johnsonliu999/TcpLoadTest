@@ -2,6 +2,7 @@
 
 #include <QTimer>
 #include <QDebug>
+#include <QThreadPool>
 
 volatile uint32_t MgrThd::succeed;
 volatile uint32_t MgrThd::failed;
@@ -23,6 +24,8 @@ MgrThd::~MgrThd()
 void MgrThd::timeout()
 {
     qDebug() << "Enter time out";
+    qDebug() << "Active :" << QThreadPool::globalInstance()->activeThreadCount();
+    qDebug() << "Max :" << QThreadPool::globalInstance()->maxThreadCount();
     m_mutex.lock();
     uint32_t total = succeed+failed;
     m_mutex.unlock();

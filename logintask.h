@@ -10,10 +10,11 @@ class LoginTask : public QRunnable
 {
 public:
     LoginTask(const LoginForm& form);
+    ~LoginTask();
     void run();
 
 private:
-    QMutex mutex;
+    QMutex m_mutex;
     LoginForm* mp_form;
 };
 

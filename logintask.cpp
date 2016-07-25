@@ -13,37 +13,39 @@ LoginTask::LoginTask(const LoginForm& form) :
 
 }
 
+LoginTask::~LoginTask()
+{
+    delete mp_form;
+}
+
 void LoginTask::run()
 {
-    qDebug() << "Active :" << QThreadPool::globalInstance()->activeThreadCount();
-
     if (!TGClient_Init())
     {
         qDebug() << QThread::currentThreadId() << ": Init failed";
         QThread::currentThread()->quit();
     }
 
-    mutex.lock();
+    m_mutex.lock();
     long handle = TGClient_AsyncLogin((char*)mp_form->ip.toStdString().data(),
                                       mp_form->port,
                                       mp_form->username.toStdString().data(),
                                       mp_form->pwd.toStdString().data(),
                                       mp_form->nodeID,
                                       nullptr, nullptr);
-    mutex.unlock();
+    m_mutex.unlock();
     if (!handle)
     {
-        mutex.lock();
+        m_mutex.lock();
         LoginMgrThd::failed++;
-        mutex.unlock();
+        m_mutex.unlock();
         qDebug() << QThread::currentThreadId() << ": Login failed";
-        QThread::currentThread()->quit();
     }
     else
     {
-        mutex.lock();
+        m_mutex.lock();
         LoginMgrThd::succeed++;
-        mutex.unlock();
+        m_mutex.unlock();
         qDebug() << QThread::currentThreadId() << ": Login succeed";
     }
 }

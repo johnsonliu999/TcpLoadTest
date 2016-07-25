@@ -19,14 +19,16 @@ SOURCES += main.cpp\
     logintask.cpp \
     loginmgrthd.cpp \
     connectmgrthd.cpp \
-    mgrthd.cpp
+    mgrthd.cpp \
+    connecttask.cpp
 
 HEADERS  += mainwindow.h \
     TGClientSDK.h \
     logintask.h \
     loginmgrthd.h \
     connectmgrthd.h \
-    mgrthd.h
+    mgrthd.h \
+    connecttask.h
 
 FORMS    += mainwindow.ui
 

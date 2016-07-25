@@ -18,9 +18,12 @@ LoginMgrThd::~LoginMgrThd()
 void LoginMgrThd::run()
 {
     QThreadPool::globalInstance()->setMaxThreadCount(num);
-    LoginTask* task = new LoginTask(m_form);
+    LoginTask* task;
     for (uint32_t i = 0; i < num; i++)
+    {
+        task = new LoginTask(m_form);
         QThreadPool::globalInstance()->start(task);
+    }
     emit startTimer(3000);
     exec();
 }

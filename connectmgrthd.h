@@ -4,7 +4,7 @@
 #include <QThread>
 #include <QMutex>
 
-class QTimer;
+#include "mgrthd.h"
 
 struct ConnectForm
 {
@@ -24,13 +24,15 @@ struct ConnectForm
     }
 };
 
-class ConnectMgrThd : public QThread
+class ConnectMgrThd : public MgrThd
 {
     Q_OBJECT
 public:
-    ConnectMgrThd(const ConnectForm& form);
+    ConnectMgrThd(int num, const ConnectForm& form, QObject *parent = 0);
 
     void run();
+
+    static uint32_t timeout;
 
 private:
     const ConnectForm m_form;
