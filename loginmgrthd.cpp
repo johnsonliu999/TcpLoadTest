@@ -17,7 +17,7 @@ LoginMgrThd::~LoginMgrThd()
 
 void LoginMgrThd::run()
 {
-    QThreadPool::globalInstance()->setMaxThreadCount(num);
+    QThreadPool::globalInstance()->setMaxThreadCount(1000);
     LoginTask* task;
     for (uint32_t i = 0; i < num; i++)
     {

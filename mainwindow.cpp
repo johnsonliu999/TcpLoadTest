@@ -39,7 +39,7 @@ void MainWindow::on_testFinished(uint32_t succeed, uint32_t failed)
 
     ui->nameEdit->setEnabled(true);
     ui->pwdEdit->setEnabled(true);
-    ui->IPEdit->setEnabled(true);
+    ui->ipEdit->setEnabled(true);
     ui->portEdit->setEnabled(true);
     ui->numEdit->setEnabled(true);
     ui->nodeIDEdit->setEnabled(true);
@@ -51,7 +51,7 @@ void MainWindow::on_startBtn_clicked()
 {
     QString username = ui->nameEdit->text();
     QString pwd = ui->pwdEdit->text();
-    QString ip = ui->IPEdit->text();
+    QString ip = ui->ipEdit->text();
     uint16_t port = ui->portEdit->text().toShort();
     uint32_t num = ui->numEdit->text().toUInt();
     uint64_t nodeID = ui->nodeIDEdit->text().toULongLong();
@@ -74,7 +74,7 @@ void MainWindow::on_startBtn_clicked()
     ui->progressBar->show();
     ui->nameEdit->setEnabled(false);
     ui->pwdEdit->setEnabled(false);
-    ui->IPEdit->setEnabled(false);
+    ui->ipEdit->setEnabled(false);
     ui->portEdit->setEnabled(false);
     ui->numEdit->setEnabled(false);
     ui->nodeIDEdit->setEnabled(false);

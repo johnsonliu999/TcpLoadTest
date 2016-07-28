@@ -23,6 +23,9 @@ void LoginTask::run()
     if (!TGClient_Init())
     {
         qDebug() << QThread::currentThreadId() << ": Init failed";
+        m_mutex.lock();
+        LoginMgrThd::failed++;
+        m_mutex.unlock();
         QThread::currentThread()->quit();
     }
 

@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     loginmgrthd.cpp \
     connectmgrthd.cpp \
     mgrthd.cpp \
-    connecttask.cpp
+    connecttask.cpp \
+    ipedit.cpp
 
 HEADERS  += mainwindow.h \
     TGClientSDK.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     loginmgrthd.h \
     connectmgrthd.h \
     mgrthd.h \
-    connecttask.h
+    connecttask.h \
+    ipedit.h
 
 FORMS    += mainwindow.ui
 
