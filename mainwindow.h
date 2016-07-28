@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTime>
 
 class MgrThd;
 
@@ -26,6 +27,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    QTime m_time;
     MgrThd* mp_mgr;
 };
 

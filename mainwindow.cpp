@@ -18,6 +18,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->progressBar->hide();
+
+    QRegExp rx;
+    rx.setPattern(R"(\d{18})");
+    ui->nodeIDEdit->setValidator(new QRegExpValidator(rx, this));
+    rx.setPattern(R"(\d{5})");
+    ui->portEdit->setValidator(new QRegExpValidator(rx, this));
+    rx.setPattern(R"(\d+)");
 }
 
 MainWindow::~MainWindow()
@@ -29,6 +36,7 @@ void MainWindow::on_testFinished(uint32_t succeed, uint32_t failed)
 {
     ui->succeedEdit->setText(QString::number(succeed));
     ui->failedEdit->setText(QString::number(failed));
+    ui->timeEdit->setText(QString::number(m_time.elapsed()) + " msec");
     ui->progressBar->hide();
 
     mp_mgr->quit();
@@ -37,6 +45,7 @@ void MainWindow::on_testFinished(uint32_t succeed, uint32_t failed)
 
     QMessageBox::information(this, "Test Finished", "Test Finished!", QMessageBox::Ok);
 
+    ui->progressBar->hide();
     ui->nameEdit->setEnabled(true);
     ui->pwdEdit->setEnabled(true);
     ui->ipEdit->setEnabled(true);
@@ -44,6 +53,7 @@ void MainWindow::on_testFinished(uint32_t succeed, uint32_t failed)
     ui->numEdit->setEnabled(true);
     ui->nodeIDEdit->setEnabled(true);
     ui->startBtn->setEnabled(true);
+    ui->taskBox->setEnabled(true);
 
 }
 
@@ -62,16 +72,21 @@ void MainWindow::on_startBtn_clicked()
     {
     case 0:
         mp_mgr = new ConnectMgrThd(num, ConnectForm(ip, port));
-        connect(mp_mgr, &MgrThd::testFinished, this, &MainWindow::on_testFinished);
         break;
     case 1:
         mp_mgr = new LoginMgrThd(num, LoginForm(ip, username, pwd, port, nodeID));
-        connect(mp_mgr, &MgrThd::testFinished, this, &MainWindow::on_testFinished);
+        break;
     }
 
-    mp_mgr->start();
+    connect(mp_mgr, &MgrThd::updateProgress, ui->progressBar, &QProgressBar::setValue);
+    connect(mp_mgr, &MgrThd::testFinished, this, &MainWindow::on_testFinished);
 
+    mp_mgr->start();
+    m_time.start();
+
+    ui->progressBar->setValue(0);
     ui->progressBar->show();
+    ui->taskBox->setEnabled(false);
     ui->nameEdit->setEnabled(false);
     ui->pwdEdit->setEnabled(false);
     ui->ipEdit->setEnabled(false);
@@ -80,6 +95,7 @@ void MainWindow::on_startBtn_clicked()
     ui->nodeIDEdit->setEnabled(false);
     ui->succeedEdit->clear();
     ui->failedEdit->clear();
+    ui->timeEdit->clear();
 
     ui->startBtn->setEnabled(false);
 }

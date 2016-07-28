@@ -184,7 +184,7 @@
      </rect>
     </property>
     <property name="maximum">
-     <number>0</number>
+     <number>100</number>
     </property>
     <property name="value">
      <number>0</number>
@@ -196,20 +196,13 @@
       <x>270</x>
       <y>20</y>
       <width>183</width>
-      <height>54</height>
+      <height>86</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_5">
      <property name="spacing">
       <number>12</number>
      </property>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>Succeed</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="succeedEdit">
        <property name="readOnly">
@@ -224,8 +217,29 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Succeed</string>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="1">
       <widget class="QLineEdit" name="failedEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Time</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="timeEdit">
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -237,7 +251,7 @@
     <property name="geometry">
      <rect>
       <x>270</x>
-      <y>100</y>
+      <y>160</y>
       <width>91</width>
       <height>22</height>
      </rect>

@@ -40,7 +40,7 @@ void ConnectTask::run()
         if (mp_socket->error() == QAbstractSocket::NetworkError)
         {
             m_mutex.lock();
-            ConnectMgrThd::timeout++;
+            ConnectMgrThd::on_timeout++;
             ConnectMgrThd::failed++;
             m_mutex.unlock();
         }

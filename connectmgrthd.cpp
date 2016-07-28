@@ -3,13 +3,13 @@
 
 #include <QThreadPool>
 
-uint32_t ConnectMgrThd::timeout;
+uint32_t ConnectMgrThd::on_timeout;
 
 ConnectMgrThd::ConnectMgrThd(int num, const ConnectForm &form, QObject *parent) :
     MgrThd(num, parent),
     m_form(form)
 {
-    ConnectMgrThd::timeout = 0;
+    ConnectMgrThd::on_timeout = 0;
 }
 
 void ConnectMgrThd::run()
@@ -24,6 +24,6 @@ void ConnectMgrThd::run()
     qDebug() << "Num :" << num;
     emit startTimer(3000);
     QThreadPool::globalInstance()->waitForDone(-1);
-    qDebug() << "Timeout :" << timeout;
+    qDebug() << "Timeout :" << on_timeout;
 //    exec();
 }

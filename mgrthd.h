@@ -31,9 +31,10 @@ private:
 signals:
     void startTimer(int msec);
     void testFinished(uint32_t succeed, uint32_t failed);
+    void updateProgress(int value);
 
 private slots:
-    void timeout();
+    void on_timeout();
 };
 
 #endif // MGRTHD_H

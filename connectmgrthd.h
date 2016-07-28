@@ -32,7 +32,7 @@ public:
 
     void run();
 
-    static uint32_t timeout;
+    static uint32_t on_timeout;
 
 private:
     const ConnectForm m_form;

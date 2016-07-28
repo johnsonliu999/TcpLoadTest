@@ -14,14 +14,14 @@ MgrThd::MgrThd(const int num, QObject *parent) :
 {
     succeed = failed = 0;
     connect(this, SIGNAL(startTimer(int)), mp_timer, SLOT(start(int)));
-    connect(mp_timer, &QTimer::timeout, this, &MgrThd::timeout);
+    connect(mp_timer, &QTimer::timeout, this, &MgrThd::on_timeout);
 }
 
 MgrThd::~MgrThd()
 {
 }
 
-void MgrThd::timeout()
+void MgrThd::on_timeout()
 {
     qDebug() << "Enter time out";
     qDebug() << "Active :" << QThreadPool::globalInstance()->activeThreadCount();
@@ -31,6 +31,9 @@ void MgrThd::timeout()
     m_mutex.unlock();
     qDebug() << "Succeed :" << succeed;
     qDebug() << "Failed :" << failed;
+
+    emit updateProgress(total*100/num);
+
     if (total == num)
     {
         mp_timer->stop();
